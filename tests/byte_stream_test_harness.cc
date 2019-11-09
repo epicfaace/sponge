@@ -173,10 +173,11 @@ void BytesRead::execute(ByteStream &bs) const {
 }
 
 // Peek
-Peek::Peek(const std::string &output) : _output(output) {}
+Peek::Peek(const std::string &output) : _output(output), _len(output.size()) {}
+Peek::Peek(const std::string &output, const size_t len) : _output(output), _len(len) {}
 std::string Peek::description() const { return "\"" + _output + "\" at the front of the stream"; }
 void Peek::execute(ByteStream &bs) const {
-    auto output = bs.peek_output(_output.size());
+    auto output = bs.peek_output(_len);
     if (output != _output) {
         throw ByteStreamExpectationViolation("Expected \"" + _output + "\" at the front of the stream, but found \"" +
                                              output + "\"");

@@ -68,6 +68,20 @@ int main() {
             test.execute(Peek{"at"});
         }
 
+        {
+            ByteStreamTestHarness test{"peek-len-larger-than-capacity", 2};
+
+            test.execute(Write{"hi"}.with_bytes_written(2));
+            test.execute(Peek{"hi", 3});
+        }
+
+        {
+            ByteStreamTestHarness test{"peek-len-larger-than-bytes-written", 2};
+
+            test.execute(Write{"h"}.with_bytes_written(1));
+            test.execute(Peek{"h", 2});
+        }
+
     } catch (const exception &e) {
         cerr << "Exception: " << e.what() << endl;
         return EXIT_FAILURE;

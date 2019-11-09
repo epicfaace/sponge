@@ -122,8 +122,10 @@ struct RemainingCapacity : public ByteStreamExpectation {
 
 struct Peek : public ByteStreamExpectation {
     std::string _output;
+    size_t _len;
 
     Peek(const std::string &output);
+    Peek(const std::string &output, const size_t len);
     std::string description() const override;
     void execute(ByteStream &) const override;
 };
